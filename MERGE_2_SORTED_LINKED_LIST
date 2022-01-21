@@ -1,0 +1,31 @@
+ListNode* Solution::mergeTwoLists(ListNode* A, ListNode* B) {
+    ListNode* h1=A;
+    ListNode* h2=B;
+    ListNode* d= new ListNode(0);
+    ListNode* curr= d;
+    while(h1!=NULL && h2!=NULL)
+    {
+        if(h1->val>h2->val)
+        {
+            curr->next= h2;
+            curr=curr->next;
+        h2=h2->next;
+            
+        }
+        else{
+            curr->next=h1;
+            curr=curr->next;
+            h1=h1->next;
+        }
+    }
+    if(h1!=NULL)
+    {
+        curr->next=h1;
+    }
+    else if(h2!=NULL)
+    {
+        curr->next=h2;
+    }
+    return d->next
+    }
+    // TC O(N+M) SC(1)
