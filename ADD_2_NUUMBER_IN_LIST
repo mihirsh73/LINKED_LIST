@@ -1,0 +1,77 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int size(ListNode* A){
+int n=0;
+ListNode* temp=A;
+while(temp!=NULL){
+temp=temp->next;
+n++;
+}
+return n;
+}
+    ListNode* addTwoNumbers(ListNode* A, ListNode* B) {
+        /*ListNode* dummy = new ListNode(0);
+        ListNode* p=l1;
+        ListNode*q=l2;
+        ListNode*curr=dummy;
+        int carry=0;
+        while(q!=NULL || p!=NULL)
+        {
+            int x= (p!=NULL)?p->val:0;
+            int y=(q!=NULL)?q->val:0;                                     TC O(N) SC O(N)
+            int sum= x+y+carry;
+            carry=sum/10;
+            curr->next= new ListNode(sum%10);
+            curr=curr->next;
+            if(p!=NULL) p=p->next;
+            if(q!=NULL) q=q->next;
+            
+            
+        }
+        if(carry>0)
+        {
+            curr->next = new ListNode(carry);
+        }
+        return dummy->next;*/
+        int la=size(A);
+int lb=size(B);
+ListNode* temp;
+if(la<lb){
+temp=A;
+A=B;
+B=temp;
+}
+ListNode* x=A;
+ListNode* y=B;
+int carry=0;
+while(x!=NULL){
+if(carry!=0){
+x->val=(x->val)+carry;
+carry=0;
+}
+if(y!=NULL)x->val=(x->val)+(y->val);
+if(x->val>9){                                                    // TC O(N) SC O(1)
+carry=x->val/10;
+x->val=(x->val)%10;
+}
+temp=x;
+x=x->next;
+if(y!=NULL)y=y->next;
+}
+if(carry!=0){
+temp->next=new ListNode(carry);
+}
+return A;
+        
+    }
+};
