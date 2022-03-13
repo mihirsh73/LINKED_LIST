@@ -1,0 +1,21 @@
+Node *removeDuplicates(Node *head)
+{
+    if(head==NULL) return NULL;
+ Node* curr=head->next;
+    Node*prev=head;
+    while(curr!=NULL)
+    {
+        if(curr->data!=prev->data)
+        {
+            prev->next=curr;
+            curr=curr->next;
+            prev=prev->next;
+        }
+        else{
+            curr=curr->next;
+        }
+    }
+    prev->next=NULL;           // must add null at the otherwise // ex 96 98 98 98 if not add null 96 98 98 98 if add null 96 98
+    return head;
+    
+}
