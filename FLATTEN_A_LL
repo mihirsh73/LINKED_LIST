@@ -1,0 +1,65 @@
+Node* merge(Node *a, Node*b)
+{
+     Node *temp = new Node(0);
+    Node *res = temp; 
+    
+    while(a != NULL && b != NULL) {
+        if(a->data < b->data) {
+            temp->bottom = a; 
+            temp = temp->bottom;                // TC O(N) TOTAL NUMBER OF NODES SC O(M) NODES OF RIGHT SIDE 
+            a = a->bottom; 
+        }
+        else {
+            temp->bottom = b;
+            temp = temp->bottom; 
+            b = b->bottom; 
+        }
+    }
+    
+    if(a) temp->bottom = a; 
+    else temp->bottom = b; 
+    
+    return res -> bottom; 
+}
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(root==NULL || root->next==NULL)
+   {
+       return root;
+   }
+   root=merge(root,flatten(root->next));
+   return root;
+}
+// BRUTE FORCE BELOW
+Node* merge(Node *a, Node*b)
+{
+    if(a==NULL) return b;
+    if(b==NULL) return a;
+    Node* result;
+    if(a->data<b->data)
+    {
+        result=a;
+        result->bottom=merge(a->bottom,b);                     // TC (N*N*M) N= NODES ON RIGHT AND M = NODES OF BOTTOM 
+                                                            // COMBINING TOW COLUMN 2M+3M....N*M  , SO FOR CALLING EVERY N NODES SO N*N*M
+                                                            // SC O(N*M)
+    }
+    else{
+        result=b;
+        result->bottom=merge(a,b->bottom);
+    }
+    result->next=NULL;
+    return result;
+    
+}
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(root==NULL || root->next==NULL)
+   {
+       return root;
+   }
+   root=merge(root,flatten(root->next));
+   return root;
+}
+
