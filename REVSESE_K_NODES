@@ -1,0 +1,71 @@
+Node* Reverse(struct Node* head, int k)
+{
+    // Create a stack of Node*
+    stack<Node*> mystack;
+    struct Node* current = head;
+    struct Node* prev = NULL;
+ 
+    while (current != NULL) {
+ 
+        // Terminate the loop whichever comes first
+        // either current == NULL or count >= k
+        int count = 0;
+        while (current != NULL && count < k) {
+            mystack.push(current);
+            current = current->next;
+            count++;
+        }
+                                                                 TC O(N) SC O(K)
+        // Now pop the elements of stack one by one
+        while (mystack.size() > 0) {
+ 
+            // If final list has not been started yet.
+            if (prev == NULL) {
+                prev = mystack.top();
+                head = prev;
+                mystack.pop();
+            } else {
+                prev->next = mystack.top();
+                prev = prev->next;
+                mystack.pop();
+            }
+        }
+    }
+ 
+    // Next of last element will point to NULL.
+    prev->next = NULL;
+ 
+    return head;
+}
+
+/// BRUTE FORCE APPROACH
+
+Node* reverse(Node* head, int k)
+{
+	// base case
+	if (!head)
+		return NULL;
+	Node* current = head;
+	Node* next = NULL;
+	Node* prev = NULL;
+	int count = 0;
+
+	/*reverse first k nodes of the linked list */
+	while (current != NULL && count < k) {
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;                                                         TC O(N) SC O(N/K)
+		count++;
+	}
+
+	/* next is now a pointer to (k+1)th node
+	Recursively call for the list starting from current.
+	And make rest of the list as next of first node */
+	if (next != NULL)
+		head->next = reverse(next, k);
+
+	/* prev is new head of the input list */
+	return prev;
+}
+
