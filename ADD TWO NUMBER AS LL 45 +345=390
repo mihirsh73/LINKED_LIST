@@ -1,0 +1,68 @@
+//only difference with earlier add number just do reverse first
+class Solution
+{
+    public:
+    //Function to add two numbers represented by linked list.
+    int length(Node* head)
+    {
+        int count=0;
+        while(head!=NULL)
+        {
+            count++;
+            head=head->next;
+        }
+        return count;
+    }
+    Node* reverse1(Node* first)
+    {
+        Node* curr=first;
+        Node* next;
+        Node* prev=NULL;
+        while(curr!=NULL)
+        {
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+    
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        int size1= length(first);
+        int size2= length(second);
+        if(size1<size2)
+        {
+            swap(first,second);                                          TC O(N)+O(M)+O(N)+O(N)=O(N)
+                                                                          SC O(1)
+        }
+        Node* p=reverse1(first);
+        Node* q= reverse1(second);
+        Node* temp;
+        Node* x=p;
+        Node* y=q;
+        int carry=0;
+        while(x!=NULL){
+        if(carry!=0){
+        x->data=(x->data)+carry;  // add the carry and makes it zero
+        carry=0;
+        }
+        if(y!=NULL)x->data=(x->data)+(y->data);
+        if(x->data>9){
+        carry=x->data/10;
+        x->data=(x->data)%10;
+        }
+        temp=x;   // maintain a prev node because in last if carry not zero than just make new node and add carry
+            
+        x=x->next;
+        if(y!=NULL)y=y->next;
+        }
+        if(carry!=0){
+        temp->next=new Node(carry);
+        }
+        return reverse1(p);
+
+        
+    }
+};
