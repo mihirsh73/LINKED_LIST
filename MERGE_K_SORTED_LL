@@ -36,4 +36,4 @@ class Solution{
             
         }
         return dummy->next;
-    }  // TC o(n*k(log(k)) sc o(k)
+    }  // TC o(n*k(log(k)) n*k = total number of nodes sc o(k)
