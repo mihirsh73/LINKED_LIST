@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  node* next;
+  node(int x)
+  {
+      data=x;
+      next=NULL;
+  }
+};
+class s{
+    private:
+    int arr[1000];
+    int top;
+    public:
+    s()
+    {
+        top=-1;
+    }
+    void push(int x)
+    {
+        
+        top++;
+        arr[top]=x;
+    }
+    int pop()
+    {
+        if(top==-1) return -1;
+        return arr[top--];
+    }
+
+};
+class q{
+    private:
+    int arr[1000];
+    int front;
+    int rear;
+    public:
+     q()
+     {
+         front=0;
+         rear=0;
+     }
+     void push(int x)
+     {
+         arr[rear++]=x;
+     }
+     int pop()
+     {
+         if(front==rear) return -1;
+         return arr[front++];
+     }
+};
+int main() {
+    s obj1;
+    obj1.push(2);
+    obj1.push(3);
+    
+    obj1.push(4);
+    cout<<obj1.pop()<<endl;
+    cout<<obj1.pop()<<endl;
+    cout<<obj1.pop()<<endl;
+    cout<<obj1.pop()<<endl;
+
+
+}
