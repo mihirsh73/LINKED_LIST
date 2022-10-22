@@ -69,3 +69,39 @@ Node* reverse(Node* head, int k)
 	return prev;
 }
 
+//////////////////////////////////////////// OPTIMISED SOLUTION TC O(N) SC O(1) LITTLE BIT CHANCES IN STRIVER CODE////////////////////
+int count=0;
+     node* dummy = new node(-1);
+     dummy->next=head;
+     node* curr=dummy;
+     node* next= dummy;
+     node* prev=dummy;
+     while(curr!=NULL)
+     {
+         count++;
+         curr=curr->next;
+     }
+     while(next!=NULL)
+     {
+         curr=prev->next;
+         next= curr->next;
+         int n;
+         if(count>k)
+         {
+             n=k;
+         }
+         else{
+             n=count-1;
+         }
+         for(int i=1; i<n; i++)
+         {
+             curr->next=next->next;
+             next->next= prev->next;
+             prev->next= next;
+             next=curr->next;
+         }
+         prev=curr;
+         count -=k;
+     }
+     return dummy->next;
+    } //////////////////////////TC O(N) SC O(1)
